@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TIA Portal V20 ile Hangi Yenilikler Geliyor? — Autos.News</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0a0a0a;
+  --surface: #111111;
+  --surface2: #161616;
+  --line: #202020;
+  --line2: #2a2a2a;
+  --text: #e8e8e8;
+  --muted: #666;
+  --muted2: #444;
+  --accent: #D85A30;
+  --max: 1180px;
+  --article-max: 720px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: "DM Sans", sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: inherit; text-decoration: none; }
+
+.shell {
+  width: min(calc(100% - 48px), var(--max));
+  margin: 0 auto;
+}
+
+/* ── NAV ── */
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(10,10,10,.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--line);
+}
+.nav-inner {
+  display: flex;
+  align-items: center;
+  height: 56px;
+  gap: 0;
+}
+.nav-brand {
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--text);
+  flex-shrink: 0;
+  margin-right: 36px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.nav-brand-bar { width: 3px; height: 20px; background: #fff; border-radius: 2px; }
+.nav-brand span { color: var(--accent); }
+.nav-sep { width: 1px; height: 20px; background: var(--line2); margin-right: 32px; flex-shrink: 0; }
+.nav-back {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--muted);
+  cursor: pointer;
+  transition: color .15s;
+  padding: 6px 0;
+}
+.nav-back:hover { color: var(--text); }
+.nav-back svg { transition: transform .15s; }
+.nav-back:hover svg { transform: translateX(-3px); }
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: auto;
+}
+.nav-live {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 6px 13px;
+  border-radius: 7px;
+  background: var(--surface2);
+  border: 1px solid var(--line2);
+  font-size: 12px;
+  color: var(--muted);
+}
+.live-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  animation: blink 2.2s ease-in-out infinite;
+}
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:.25} }
+
+/* ── ARTICLE HERO ── */
+.article-hero {
+  position: relative;
+  overflow: hidden;
+  height: 380px;
+  background: linear-gradient(145deg, #0d1520, #162540, #1e3050);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+.article-hero-bg {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 180px;
+  opacity: .04;
+  pointer-events: none;
+  user-select: none;
+}
+.article-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(10,10,10,1) 0%, rgba(10,10,10,.6) 40%, transparent 100%);
+}
+.article-hero-body {
+  position: relative;
+  z-index: 2;
+  width: min(calc(100% - 48px), var(--max));
+  margin: 0 auto;
+  padding-bottom: 36px;
+}
+.article-cat {
+  display: inline-flex;
+  align-items: center;
+  background: var(--accent);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  padding: 4px 11px;
+  border-radius: 5px;
+  margin-bottom: 16px;
+  font-family: "DM Mono", monospace;
+}
+.article-title {
+  font-size: clamp(22px, 3.5vw, 36px);
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -.04em;
+  max-width: var(--article-max);
+  margin-bottom: 16px;
+}
+.article-meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 12px;
+  color: var(--muted);
+  font-family: "DM Mono", monospace;
+}
+.meta-dot { color: var(--muted2); }
+.article-source {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 10px 3px 6px;
+  border-radius: 99px;
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(255,255,255,.08);
+}
+.source-avatar {
+  width: 18px; height: 18px;
+  border-radius: 4px;
+  background: var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 9px;
+  font-weight: 700;
+  color: #fff;
+}
+
+/* ── ARTICLE BODY ── */
+.article-wrap {
+  padding: 48px 0 72px;
+}
+.article-layout {
+  display: grid;
+  grid-template-columns: var(--article-max) 1fr;
+  gap: 56px;
+  align-items: start;
+}
+
+.article-content { max-width: var(--article-max); }
+
+.article-lead {
+  font-size: 17px;
+  line-height: 1.75;
+  color: #bbb;
+  margin-bottom: 32px;
+  font-weight: 400;
+  border-left: 3px solid var(--accent);
+  padding-left: 20px;
+}
+
+.article-body p {
+  font-size: 15.5px;
+  line-height: 1.85;
+  color: #aaa;
+  margin-bottom: 22px;
+}
+
+.article-body h2 {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text);
+  letter-spacing: -.03em;
+  margin: 36px 0 14px;
+}
+
+.article-body h3 {
+  font-size: 15px;
+  font-weight: 600;
+  color: #ccc;
+  letter-spacing: -.02em;
+  margin: 28px 0 10px;
+}
+
+.article-body ul {
+  margin: 0 0 22px 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.article-body ul li {
+  display: flex;
+  gap: 12px;
+  font-size: 15px;
+  line-height: 1.7;
+  color: #aaa;
+}
+.article-body ul li::before {
+  content: '';
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--accent);
+  margin-top: 10px;
+  flex-shrink: 0;
+}
+
+.article-body .callout {
+  background: var(--surface2);
+  border: 1px solid var(--line2);
+  border-left: 3px solid var(--accent);
+  border-radius: 0 8px 8px 0;
+  padding: 16px 20px;
+  margin: 28px 0;
+  font-size: 14px;
+  line-height: 1.7;
+  color: #999;
+}
+.callout-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-family: "DM Mono", monospace;
+  margin-bottom: 6px;
+}
+
+.article-divider {
+  height: 1px;
+  background: var(--line);
+  margin: 36px 0;
+}
+
+.article-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 20px;
+  border-top: 1px solid var(--line);
+  margin-top: 40px;
+}
+.article-tags { display: flex; gap: 8px; flex-wrap: wrap; }
+.tag {
+  font-size: 11px;
+  padding: 5px 12px;
+  border-radius: 99px;
+  background: var(--surface2);
+  border: 1px solid var(--line2);
+  color: var(--muted);
+  font-family: "DM Mono", monospace;
+  cursor: pointer;
+  transition: all .15s;
+}
+.tag:hover { border-color: var(--line2); color: #ccc; }
+.article-source-link {
+  font-size: 12px;
+  color: var(--muted);
+  font-family: "DM Mono", monospace;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: color .15s;
+}
+.article-source-link:hover { color: var(--accent); }
+
+/* ── SIDEBAR ── */
+.article-sidebar { padding-top: 4px; }
+
+.sidebar-label {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-family: "DM Mono", monospace;
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.sidebar-label::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--line);
+}
+
+.related-list { display: flex; flex-direction: column; gap: 0; }
+
+.related-item {
+  display: flex;
+  gap: 12px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--line);
+  cursor: pointer;
+  transition: opacity .15s;
+}
+.related-item:hover { opacity: .75; }
+.related-item:last-child { border-bottom: none; }
+
+.related-thumb {
+  width: 60px; height: 48px;
+  border-radius: 7px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  opacity: .8;
+}
+.related-body { flex: 1; min-width: 0; }
+.related-cat {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-family: "DM Mono", monospace;
+  margin-bottom: 4px;
+}
+.related-title {
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.35;
+  letter-spacing: -.02em;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.related-date {
+  font-size: 11px;
+  color: var(--muted);
+  font-family: "DM Mono", monospace;
+  margin-top: 5px;
+}
+
+.sidebar-source-box {
+  margin-top: 28px;
+  padding: 16px;
+  background: var(--surface2);
+  border: 1px solid var(--line2);
+  border-radius: 10px;
+}
+.source-box-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-family: "DM Mono", monospace;
+  margin-bottom: 10px;
+}
+.source-box-name { font-size: 14px; font-weight: 600; margin-bottom: 4px; }
+.source-box-desc { font-size: 12px; color: var(--muted); line-height: 1.6; }
+.source-box-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 12px;
+  font-size: 12px;
+  color: var(--accent);
+  font-family: "DM Mono", monospace;
+  transition: gap .15s;
+}
+.source-box-link:hover { gap: 8px; }
+
+/* ── FOOTER ── */
+.footer {
+  border-top: 1px solid var(--line);
+  padding: 22px 0;
+}
+.footer-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.footer-brand {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+.footer-brand span { color: var(--accent); }
+.footer-text {
+  font-size: 11px;
+  color: var(--muted);
+  font-family: "DM Mono", monospace;
+}
+
+@media (max-width: 900px) {
+  .article-layout {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  .article-hero { height: 280px; }
+}
+@media (max-width: 600px) {
+  .nav-live { display: none; }
+  .article-hero { height: 240px; }
+  .article-title { font-size: 22px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<nav class="nav">
+  <div class="shell">
+    <div class="nav-inner">
+      <a class="nav-brand" href="index.html">
+        <div class="nav-brand-bar"></div>
+        Autos<span>.News</span>
+      </a>
+      <div class="nav-sep"></div>
+      <a class="nav-back" href="index.html">
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+          <path d="M10 3L5 8l5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        Tüm haberler
+      </a>
+      <div class="nav-right">
+        <div class="nav-live">
+          <div class="live-dot"></div>
+          Canlı Akış
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- ── HERO ── -->
+<div class="article-hero">
+  <div class="article-hero-bg">⚙️</div>
+  <div class="article-hero-overlay"></div>
+  <div class="article-hero-body">
+    <div class="article-cat">Yazılım</div>
+    <h1 class="article-title">TIA Portal V20 ile Hangi Yenilikler Geliyor?</h1>
+    <div class="article-meta">
+      <div class="article-source">
+        <div class="source-avatar">Si</div>
+        Siemens
+      </div>
+      <span class="meta-dot">·</span>
+      <span>19 Nis 2026</span>
+      <span class="meta-dot">·</span>
+      <span>4 dk okuma</span>
+    </div>
+  </div>
+</div>
+
+<!-- ── ARTICLE BODY ── -->
+<div class="shell article-wrap">
+  <div class="article-layout">
+
+    <article class="article-content">
+
+      <p class="article-lead">
+        Siemens, TIA Portal platformunun yirminci sürümünü duyurdu. Yeni sürüm geliştirilmiş simülasyon ortamı, AI destekli tanı araçları ve genişletilmiş PLCSIM Advanced özellikleriyle geliyor.
+      </p>
+
+      <div class="article-body">
+
+        <p>
+          Siemens'in entegre mühendislik çerçevesi TIA Portal, V20 sürümüyle birlikte önemli güncellemeler alıyor. Platforma eklenen yeni araçlar; PLC programlama süreçlerini hızlandırmayı, hata tespitini otomatikleştirmeyi ve dijital ikiz entegrasyonunu kolaylaştırmayı hedefliyor.
+        </p>
+
+        <h2>Yapay Zeka Destekli Tanılama</h2>
+
+        <p>
+          V20'nin en dikkat çekici yeniliği, makine öğrenmesi tabanlı tanılama asistanı. Sistem, geçmiş hata kayıtlarını analiz ederek arızanın hangi modülden kaynaklandığını yüzde seksenin üzerinde bir doğruluk oranıyla tahmin edebiliyor. Bu özellik, özellikle büyük tesis operatörleri için bakım duruş sürelerini ciddi ölçüde kısaltacak.
+        </p>
+
+        <div class="callout">
+          <div class="callout-label">Teknik Not</div>
+          Tanılama asistanı şimdilik S7-1500 serisi PLC'lerle uyumlu. S7-300 ve S7-400 serileri için destek 2026 Q3 itibarıyla planlanıyor.
+        </div>
+
+        <h2>PLCSIM Advanced Güncellemeleri</h2>
+
+        <p>
+          Simülasyon motoru PLCSIM Advanced, V20 ile birlikte gerçek zamanlı OPC UA sunucu desteği kazandı. Bu sayede simülasyon ortamındaki bir PLC, fiziksel bir cihaz gibi SCADA sistemiyle ya da HMI ile haberleşebiliyor. Geliştirme ve test süreçleri, donanım gerektirmeksizin uçtan uca yürütülebilir hale geliyor.
+        </p>
+
+        <ul>
+          <li>Gerçek zamanlı OPC UA sunucu desteği simülasyon ortamında aktif</li>
+          <li>Multi-instance simülasyonu ile aynı anda 32 PLC çalıştırılabiliyor</li>
+          <li>Docker konteyner desteği ile CI/CD pipeline entegrasyonu mümkün</li>
+          <li>Hardware-in-the-loop testleri için genişletilmiş API</li>
+        </ul>
+
+        <h2>Versiyon Yönetimi ve İş Birliği</h2>
+
+        <p>
+          TIA Portal V20, dahili Git entegrasyonuyla geliyor. Mühendisler artık proje geçmişini doğrudan platform içinden takip edebilecek, dal stratejileri uygulayabilecek ve değişiklikleri diff görünümüyle karşılaştırabilecek. Bu özellik, ekip bazlı geliştirme iş akışları için önemli bir boşluğu dolduruyor.
+        </p>
+
+        <h2>Performans ve Uyumluluk</h2>
+
+        <p>
+          Siemens'in açıkladığı kıyaslama testlerine göre V20, büyük projeleri açma süresini yüzde kırkın üzerinde iyileştiriyor. Eski sürümlerle geriye dönük uyumluluk korunuyor; V15 ve üzeri projeler doğrudan içe aktarılabiliyor. V14 ve altı için Siemens, migration aracı sunuyor.
+        </p>
+
+        <div class="article-divider"></div>
+
+        <p>
+          TIA Portal V20, Mayıs 2026 itibarıyla mevcut lisans sahiplerine ücretsiz güncelleme olarak sunulacak. Yeni lisanslar için fiyatlandırma değişmeyecek.
+        </p>
+
+      </div>
+
+      <div class="article-footer">
+        <div class="article-tags">
+          <span class="tag">#TIA Portal</span>
+          <span class="tag">#Siemens</span>
+          <span class="tag">#PLC</span>
+          <span class="tag">#Yazılım</span>
+        </div>
+        <a class="article-source-link" href="https://siemens.com" target="_blank">
+          Kaynak: Siemens →
+        </a>
+      </div>
+
+    </article>
+
+    <!-- ── SIDEBAR ── -->
+    <aside class="article-sidebar">
+
+      <div class="sidebar-label">Diğer haberler</div>
+
+      <div class="related-list">
+
+        <div class="related-item" onclick="window.location.href='article.html?slug=controllogix-guc-modulu'">
+          <div class="related-thumb g2">🔩</div>
+          <div class="related-body">
+            <div class="related-cat">PLC Donanımı</div>
+            <div class="related-title">ControlLogix 5580 yeni güç modülü aldı</div>
+            <div class="related-date">18 Nis 2026</div>
+          </div>
+        </div>
+
+        <div class="related-item" onclick="window.location.href='article.html?slug=abb-anomali-tespiti'">
+          <div class="related-thumb g1">🤖</div>
+          <div class="related-body">
+            <div class="related-cat">Industrial AI</div>
+            <div class="related-title">ABB Ability platformuna anomali tespiti modülü eklendi</div>
+            <div class="related-date">16 Nis 2026</div>
+          </div>
+        </div>
+
+        <div class="related-item" onclick="window.location.href='article.html?slug=ecostruxure-mqtt'">
+          <div class="related-thumb g4">🌐</div>
+          <div class="related-body">
+            <div class="related-cat">OT / IT</div>
+            <div class="related-title">EcoStruxure artık native MQTT desteği sunuyor</div>
+            <div class="related-date">17 Nis 2026</div>
+          </div>
+        </div>
+
+        <div class="related-item" onclick="window.location.href='article.html?slug=sinema-rc-zero-trust'">
+          <div class="related-thumb g5">🔒</div>
+          <div class="related-body">
+            <div class="related-cat">Güvenlik</div>
+            <div class="related-title">SINEMA RC ile Zero Trust OT erişimi</div>
+            <div class="related-date">14 Nis 2026</div>
+          </div>
+        </div>
+
+        <div class="related-item" onclick="window.location.href='article.html?slug=ethercat-g-hareket'">
+          <div class="related-thumb g3">🔄</div>
+          <div class="related-body">
+            <div class="related-cat">Motion</div>
+            <div class="related-title">EtherCAT G ile çok eksenli harekette yeni sınır</div>
+            <div class="related-date">15 Nis 2026</div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="sidebar-source-box">
+        <div class="source-box-label">Kaynak</div>
+        <div class="source-box-name">Siemens AG</div>
+        <div class="source-box-desc">Resmi Siemens blog ve duyuru sayfalarından derlenen, AI ile Türkçeye sadeleştirilmiş içerik.</div>
+        <a class="source-box-link" href="https://siemens.com" target="_blank">
+          siemens.com →
+        </a>
+      </div>
+
+    </aside>
+
+  </div>
+</div>
+
+<!-- ── FOOTER ── -->
+<footer class="footer">
+  <div class="shell">
+    <div class="footer-inner">
+      <div class="footer-brand">Autos<span>.News</span></div>
+      <div class="footer-text">Resmi kaynak odaklı · Günlük güncelleme · Türkçe</div>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .g1{background:linear-gradient(145deg,#0d1b2a,#1b2d45)}
+  .g2{background:linear-gradient(145deg,#1a0d00,#3d2000)}
+  .g3{background:linear-gradient(145deg,#1a1a00,#3a3500)}
+  .g4{background:linear-gradient(145deg,#001020,#001e38)}
+  .g5{background:linear-gradient(145deg,#0d001a,#22003d)}
+</style>
+
+</body>
+</html>
