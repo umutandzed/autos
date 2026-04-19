@@ -1,8 +1,8 @@
-name: Haberleri Çek ve Özetle
+name: Haberleri Cek ve Ozetle
 
 on:
   schedule:
-    - cron: '0 */6 * * *'
+    - cron: "0 */6 * * *"
   workflow_dispatch:
 
 jobs:
@@ -16,14 +16,17 @@ jobs:
       - name: Python kur
         uses: actions/setup-python@v5
         with:
-          python-version: '3.11'
+          python-version: "3.11"
 
-      - name: Gerekli kütüphaneleri yükle
-        run: pip install feedparser google-genai supabase
+      - name: Gerekli kutuphaneleri yukle
+        run: pip install feedparser google-generativeai supabase
 
-      - name: Haberleri çek ve özetle
+      - name: Haberleri cek ve ozetle
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
+          GEMINI_MODEL: gemini-2.5-flash-lite
+          REQUEST_DELAY_SECONDS: "5"
+          MAX_ENTRIES_PER_FEED: "2"
         run: python fetch_news.py
