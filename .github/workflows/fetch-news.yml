@@ -19,7 +19,7 @@ jobs:
           python-version: "3.11"
 
       - name: Gerekli kutuphaneleri yukle
-        run: pip install feedparser google-generativeai supabase
+        run: pip install feedparser google-generativeai supabase requests
 
       - name: Haberleri cek ve ozetle
         env:
