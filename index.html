@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Autos.News - Endustriyel Otomasyon Akisi</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0a0a0a;
+  --surface: #111111;
+  --surface2: #161616;
+  --surface3: #1c1c1c;
+  --line: #202020;
+  --line2: #2a2a2a;
+  --text: #f0f0f0;
+  --muted: #666;
+  --muted2: #444;
+  --accent: #d85a30;
+  --accent-dim: rgba(216, 90, 48, 0.12);
+  --max: 1180px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: "DM Sans", sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+}
+
+a { color: inherit; text-decoration: none; }
+
+.shell {
+  width: min(calc(100% - 48px), var(--max));
+  margin: 0 auto;
+}
+
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(10, 10, 10, 0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--line);
+}
+
+.nav-inner {
+  display: flex;
+  align-items: center;
+  height: 56px;
+  gap: 0;
+}
+
+.nav-brand {
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text);
+  flex-shrink: 0;
+  margin-right: 36px;
+}
+
+.nav-brand span { color: var(--accent); }
+
+.nav-sep {
+  width: 1px;
+  height: 20px;
+  background: var(--line2);
+  margin-right: 32px;
+  flex-shrink: 0;
+}
+
+.nav-cats {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  flex: 1;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.nav-cats::-webkit-scrollbar { display: none; }
+
+.nav-cat {
+  padding: 6px 14px;
+  border-radius: 7px;
+  font-size: 13px;
+  color: var(--muted);
+  cursor: pointer;
+  transition: all 0.15s;
+  white-space: nowrap;
+  font-weight: 400;
+}
+
+.nav-cat:hover { color: #bbb; background: var(--surface2); }
+.nav-cat.active { color: var(--text); background: var(--surface2); font-weight: 500; }
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: auto;
+  flex-shrink: 0;
+}
+
+.nav-live {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 6px 13px;
+  border-radius: 7px;
+  background: var(--surface2);
+  border: 1px solid var(--line2);
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.live-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  animation: blink 2.2s ease-in-out infinite;
+}
+
+@keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.25; } }
+
+.nav-search-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 13px;
+  border-radius: 7px;
+  background: var(--surface2);
+  border: 1px solid var(--line2);
+  font-size: 12px;
+  color: var(--muted);
+  min-width: 220px;
+}
+
+.nav-search-btn input {
+  width: 100%;
+  border: 0;
+  background: transparent;
+  color: var(--text);
+  outline: none;
+}
+
+.nav-search-btn input::placeholder { color: var(--muted); }
+
+.nav-login {
+  padding: 7px 17px;
+  border-radius: 7px;
+  background: var(--accent);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 500;
+  border: none;
+  font-family: inherit;
+}
+
+.hero-wrap { padding: 20px 0 0; }
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 5px;
+  border-radius: 14px;
+  overflow: hidden;
+  min-height: 400px;
+}
+
+.hero-smalls {
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  gap: 5px;
+}
+
+.card-sm,
+.card-hero,
+.card-news {
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.card-sm,
+.card-hero {
+  background: var(--surface);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  transition: filter 0.2s;
+}
+
+.card-sm:hover,
+.card-hero:hover { filter: brightness(1.06); }
+
+.card-sm-bg,
+.card-hero-bg,
+.card-news-bg {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.card-sm-media,
+.card-hero-media,
+.card-news-media {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.card-sm-media img,
+.card-hero-media img,
+.card-news-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  filter: saturate(1.02);
+}
+
+.card-sm-media::after,
+.card-hero-media::after,
+.card-news-media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.88), rgba(0, 0, 0, 0.16));
+}
+
+.card-sm-bg { font-size: 52px; opacity: 0.07; }
+.card-hero-bg { font-size: 120px; opacity: 0.05; }
+.card-news-bg { font-size: 40px; opacity: 0.08; }
+
+.card-sm-body {
+  position: relative;
+  z-index: 2;
+  padding: 16px 18px;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.88), transparent);
+}
+
+.card-sm-cat,
+.card-news-cat,
+.list-item-cat {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 6px;
+  font-family: "DM Mono", monospace;
+}
+
+.card-sm h3 {
+  font-size: 13.5px;
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: -0.02em;
+  margin-bottom: 8px;
+}
+
+.card-sm-meta,
+.card-hero-meta,
+.list-item-meta {
+  font-size: 11px;
+  color: var(--muted);
+  font-family: "DM Mono", monospace;
+}
+
+.card-hero-body {
+  position: relative;
+  z-index: 2;
+  padding: 32px 34px;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.5) 55%, transparent 100%);
+}
+
+.card-hero-cat {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--accent);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 4px 11px;
+  border-radius: 5px;
+  margin-bottom: 16px;
+  font-family: "DM Mono", monospace;
+}
+
+.card-hero h2 {
+  font-size: 26px;
+  font-weight: 600;
+  line-height: 1.18;
+  letter-spacing: -0.04em;
+  margin-bottom: 12px;
+  max-width: 560px;
+}
+
+.card-hero-excerpt {
+  font-size: 13px;
+  color: #aaa;
+  line-height: 1.7;
+  max-width: 540px;
+  margin-bottom: 14px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.card-hero-meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.meta-sep { color: var(--muted2); }
+
+.g1 { background: linear-gradient(145deg, #0d1b2a, #1b2d45); }
+.g2 { background: linear-gradient(145deg, #1a0d00, #3d2000); }
+.g3 { background: linear-gradient(145deg, #1a1a00, #3a3500); }
+.g4 { background: linear-gradient(145deg, #001020, #001e38); }
+.g5 { background: linear-gradient(145deg, #0d001a, #22003d); }
+.g6 { background: linear-gradient(145deg, #001a10, #003d22); }
+.g7 { background: linear-gradient(145deg, #1a0505, #3d1010); }
+.g8 { background: linear-gradient(145deg, #0a0a1a, #15153d); }
+.ghero { background: linear-gradient(145deg, #0d1520, #162540, #1e3050); }
+
+.section { padding: 36px 0 0; }
+
+.section-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--line);
+}
+
+.section-bar {
+  width: 3px;
+  height: 16px;
+  background: var(--accent);
+  border-radius: 2px;
+}
+
+.section-title {
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.section-count {
+  font-size: 11px;
+  color: var(--muted);
+  font-family: "DM Mono", monospace;
+  margin-left: auto;
+}
+
+.news-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 5px;
+}
+
+.card-news {
+  border-radius: 10px;
+  aspect-ratio: 16 / 10;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  transition: transform 0.2s, filter 0.2s;
+}
+
+.card-news:hover { transform: translateY(-2px); filter: brightness(1.1); }
+
+.card-news-body {
+  position: relative;
+  z-index: 2;
+  padding: 14px;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.92) 0%, transparent 100%);
+}
+
+.card-news-cat {
+  display: inline-block;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(6px);
+  color: #bbb;
+  font-size: 9px;
+  padding: 3px 8px;
+  border-radius: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.card-news h3 {
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.35;
+  letter-spacing: -0.02em;
+}
+
+.list-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+}
+
+.list-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 18px 0;
+  border-bottom: 1px solid var(--line);
+  cursor: pointer;
+}
+
+.list-item:nth-child(odd) { padding-right: 28px; border-right: 1px solid var(--line); }
+.list-item:nth-child(even) { padding-left: 28px; }
+.list-item:hover .list-item-title { color: var(--accent); }
+
+.list-num {
+  font-size: 12px;
+  font-family: "DM Mono", monospace;
+  color: var(--muted2);
+  min-width: 20px;
+  padding-top: 2px;
+}
+
+.list-item-title {
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: -0.02em;
+  margin-bottom: 6px;
+  transition: color 0.15s;
+}
+
+.list-item-meta {
+  display: flex;
+  gap: 8px;
+}
+
+.empty-card {
+  border: 1px solid var(--line2);
+  border-radius: 14px;
+  background: var(--surface2);
+  padding: 18px;
+  color: #aaa;
+}
+
+.empty-card strong {
+  display: block;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+
+.footer {
+  margin-top: 56px;
+  border-top: 1px solid var(--line);
+  padding: 22px 0;
+}
+
+.footer-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.footer-brand {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.footer-brand span { color: var(--accent); }
+
+.footer-text {
+  font-size: 11px;
+  color: var(--muted);
+  font-family: "DM Mono", monospace;
+}
+
+@media (max-width: 900px) {
+  .hero-grid { grid-template-columns: 1fr; }
+  .hero-smalls { grid-template-rows: auto auto; }
+  .card-sm { min-height: 160px; }
+  .card-hero { min-height: 280px; }
+  .news-grid { grid-template-columns: 1fr 1fr; }
+  .list-grid { grid-template-columns: 1fr; }
+  .list-item:nth-child(odd) { padding-right: 0; border-right: none; }
+  .list-item:nth-child(even) { padding-left: 0; }
+}
+
+@media (max-width: 600px) {
+  .nav-live,
+  .nav-login { display: none; }
+  .nav-search-btn { min-width: 0; }
+  .news-grid { grid-template-columns: 1fr; }
+  .card-hero h2 { font-size: 20px; }
+}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="shell">
+    <div class="nav-inner">
+      <a class="nav-brand" href="index.html">Autos<span>.News</span></a>
+      <div class="nav-sep"></div>
+      <div class="nav-cats" id="nav-cats">
+        <div class="nav-cat active" data-cat="all">Tumu</div>
+        <div class="nav-cat" data-cat="Yazilim">Yazilim</div>
+        <div class="nav-cat" data-cat="PLC Donanimi">PLC Donanimi</div>
+        <div class="nav-cat" data-cat="OT/IT">OT / IT</div>
+        <div class="nav-cat" data-cat="Industrial AI">Industrial AI</div>
+        <div class="nav-cat" data-cat="Motion">Motion</div>
+        <div class="nav-cat" data-cat="Guvenlik">Guvenlik</div>
+        <div class="nav-cat" data-cat="Digital Twin">Digital Twin</div>
+      </div>
+      <div class="nav-right">
+        <div class="nav-live">
+          <div class="live-dot"></div>
+          Canli Akis
+        </div>
+        <label class="nav-search-btn">
+          <svg width="13" height="13" viewBox="0 0 16 16" fill="none">
+            <circle cx="7" cy="7" r="5" stroke="#fff" stroke-width="1.5"></circle>
+            <path d="M11 11l3 3" stroke="#fff" stroke-width="1.5" stroke-linecap="round"></path>
+          </svg>
+          <input id="search-input" type="search" placeholder="Baslik, marka veya kategori ara">
+        </label>
+        <button class="nav-login" type="button">Canli Veri</button>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<div class="shell">
+  <div class="hero-wrap">
+    <div class="hero-grid" id="hero-grid"></div>
+  </div>
+
+  <section class="section">
+    <div class="section-head">
+      <div class="section-bar"></div>
+      <span class="section-title">Son Haberler</span>
+      <span class="section-count" id="news-count">0 haber</span>
+    </div>
+    <div class="news-grid" id="news-grid"></div>
+  </section>
+
+  <section class="section" style="padding-bottom:48px">
+    <div class="section-head">
+      <div class="section-bar"></div>
+      <span class="section-title">Diger Haberler</span>
+    </div>
+    <div class="list-grid" id="list-grid"></div>
+  </section>
+</div>
+
+<footer class="footer">
+  <div class="shell">
+    <div class="footer-inner">
+      <div class="footer-brand">Autos<span>.News</span></div>
+      <div class="footer-text">Resmi kaynak odakli · Gunluk guncelleme · Turkce</div>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="config.js"></script>
+<script src="articles.js"></script>
+<script>
+  const state = {
+    articles: [],
+    filtered: [],
+    activeCategory: "all",
+    query: "",
+  };
+
+  const heroGrid = document.getElementById("hero-grid");
+  const newsGrid = document.getElementById("news-grid");
+  const listGrid = document.getElementById("list-grid");
+  const newsCount = document.getElementById("news-count");
+  const searchInput = document.getElementById("search-input");
+
+  function goto(slug) {
+    window.location.href = "article.html?slug=" + encodeURIComponent(slug);
+  }
+
+  function articleMatches(article) {
+    const categoryOk = state.activeCategory === "all" || article.categoryKey === state.activeCategory;
+    if (!categoryOk) {
+      return false;
+    }
+
+    if (!state.query) {
+      return true;
+    }
+
+    const haystack = [
+      article.title,
+      article.brand,
+      article.category,
+      article.excerpt,
+      article.body,
+    ].join(" ").toLowerCase();
+
+    return haystack.includes(state.query);
+  }
+
+  function renderHero(items) {
+    if (!items.length) {
+      heroGrid.innerHTML = '<div class="empty-card"><strong>Henuz haber yok</strong><span>Supabase tablosunda kayitlar gorundukce hero alani otomatik dolacak.</span></div>';
+      return;
+    }
+
+    const hero = items[0];
+    const left = items.slice(1, 3);
+
+    heroGrid.innerHTML = `
+      <div class="hero-smalls">
+        ${left.map((article, index) => `
+          <div class="card-sm ${gradientClass(index + 1)}" onclick="goto('${escapeJs(article.slug)}')">
+            ${article.displayImageUrl ? `
+              <div class="card-sm-media">
+                <img src="${escapeAttribute(article.displayImageUrl)}" alt="${escapeAttribute(article.title)}" loading="lazy" referrerpolicy="no-referrer">
+              </div>
+            ` : ""}
+            <div class="card-sm-bg">${articleIcon(article)}</div>
+            <div class="card-sm-body">
+              <div class="card-sm-cat">${article.category}</div>
+              <h3>${escapeHtml(article.title)}</h3>
+              <div class="card-sm-meta">${escapeHtml(article.brand)} · ${escapeHtml(article.dateLabel)}</div>
+            </div>
+          </div>
+        `).join("") || `
+          <div class="empty-card"><strong>Daha fazla haber geliyor</strong><span>Yeni kayitlar geldikce bu alan dolacak.</span></div>
+        `}
+      </div>
+      <div class="card-hero ghero" onclick="goto('${escapeJs(hero.slug)}')">
+        ${hero.displayImageUrl ? `
+          <div class="card-hero-media">
+            <img src="${escapeAttribute(hero.displayImageUrl)}" alt="${escapeAttribute(hero.title)}" loading="eager" referrerpolicy="no-referrer">
+          </div>
+        ` : ""}
+        <div class="card-hero-bg">${articleIcon(hero)}</div>
+        <div class="card-hero-body">
+          <div class="card-hero-cat">${hero.category}</div>
+          <h2>${escapeHtml(hero.title)}</h2>
+          <p class="card-hero-excerpt">${escapeHtml(hero.excerpt || hero.bodyPreview)}</p>
+          <div class="card-hero-meta">
+            <span>${escapeHtml(hero.dateLabel)}</span>
+            <span class="meta-sep">·</span>
+            <span>${escapeHtml(hero.readTime)}</span>
+            <span class="meta-sep">·</span>
+            <span>${escapeHtml(hero.brand)}</span>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
+  function renderNews(items) {
+    newsCount.textContent = items.length + " haber";
+
+    if (!items.length) {
+      newsGrid.innerHTML = '<div class="empty-card"><strong>Filtreye uygun haber bulunamadi</strong><span>Aramayi temizleyip tekrar deneyebilirsin.</span></div>';
+      return;
+    }
+
+    newsGrid.innerHTML = items.map((article, index) => `
+      <div class="card-news ${gradientClass(index + 3)}" onclick="goto('${escapeJs(article.slug)}')">
+        ${article.displayImageUrl ? `
+          <div class="card-news-media">
+            <img src="${escapeAttribute(article.displayImageUrl)}" alt="${escapeAttribute(article.title)}" loading="lazy" referrerpolicy="no-referrer">
+          </div>
+        ` : ""}
+        <div class="card-news-bg">${articleIcon(article)}</div>
+        <div class="card-news-body">
+          <div class="card-news-cat">${article.category}</div>
+          <h3>${escapeHtml(article.title)}</h3>
+        </div>
+      </div>
+    `).join("");
+  }
+
+  function renderList(items) {
+    if (!items.length) {
+      listGrid.innerHTML = '<div class="empty-card"><strong>Ek liste bos</strong><span>Daha fazla haber geldikce bu alan da dolacak.</span></div>';
+      return;
+    }
+
+    listGrid.innerHTML = items.map((article, index) => `
+      <div class="list-item" onclick="goto('${escapeJs(article.slug)}')">
+        <div class="list-num">${String(index + 1).padStart(2, "0")}</div>
+        <div>
+          <div class="list-item-cat">${article.category}</div>
+          <div class="list-item-title">${escapeHtml(article.title)}</div>
+          <div class="list-item-meta">
+            <span>${escapeHtml(article.brand)}</span>
+            <span>·</span>
+            <span>${escapeHtml(article.dateLabel)}</span>
+            <span>·</span>
+            <span>${escapeHtml(article.readTime)}</span>
+          </div>
+        </div>
+      </div>
+    `).join("");
+  }
+
+  function renderAll() {
+    state.filtered = state.articles.filter(articleMatches);
+    renderHero(state.filtered.slice(0, 3));
+    renderNews(state.filtered.slice(3, 9));
+    renderList(state.filtered.slice(9, 15));
+  }
+
+  async function boot() {
+    try {
+      const articles = await fetchArticles(40);
+      state.articles = articles;
+      renderAll();
+    } catch (error) {
+      heroGrid.innerHTML = '<div class="empty-card"><strong>Canli veri alinamadi</strong><span>' + escapeHtml(error.message) + '</span></div>';
+      newsGrid.innerHTML = "";
+      listGrid.innerHTML = "";
+    }
+  }
+
+  document.getElementById("nav-cats").addEventListener("click", (event) => {
+    const button = event.target.closest("[data-cat]");
+    if (!button) {
+      return;
+    }
+    document.querySelectorAll(".nav-cat").forEach((item) => item.classList.remove("active"));
+    button.classList.add("active");
+    state.activeCategory = button.dataset.cat;
+    renderAll();
+  });
+
+  searchInput.addEventListener("input", (event) => {
+    state.query = event.target.value.trim().toLowerCase();
+    renderAll();
+  });
+
+  boot();
+</script>
+</body>
+</html>
